@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,11 +16,17 @@
             <ul class="nav navbar-nav">
                 {% if user.is_authenticated %}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'notes:index' %}">Keep Notes</span></a>
+                    <a class="nav-link" href="{% url 'notes:home_page' %}">Keep Notes</span></a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link add" href="#">+ Add Notes</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link add" href="{% url 'notes:settings' %}">Settings</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link add" href="{% url 'notes:logout' %}">Logout</a>
                 </li>
