@@ -9,92 +9,133 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <title>Keep Notes</title>
+    <title>{% block title %}Keep Notes{% endblock title %}</title>
     <style>
         :root {
-            --primary-color: #1a73e8;
-            --secondary-color: #5f6368;
-            --background-color: #f8f9fa;
-            --hover-color: #e8f0fe;
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
         }
 
         body {
-            background-color: var(--background-color);
-            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .navbar {
-            background-color: white !important;
+            background-color: white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 0.5rem 2rem;
         }
 
         .navbar-brand {
+            font-weight: 600;
             color: var(--primary-color) !important;
-            font-size: 1.5rem;
-            font-weight: 500;
         }
 
         .nav-link {
             color: var(--secondary-color) !important;
             font-weight: 500;
-            padding: 0.5rem 1rem !important;
-            margin: 0 0.2rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
 
         .nav-link:hover {
-            background-color: var(--hover-color);
             color: var(--primary-color) !important;
         }
 
-        .nav-link.add {
-            color: var(--primary-color) !important;
-            border: 1px solid var(--primary-color);
-            border-radius: 20px;
-            padding: 0.4rem 1.2rem !important;
-        }
-
-        .nav-link.add:hover {
+        .btn-primary {
             background-color: var(--primary-color);
-            color: white !important;
+            border-color: var(--primary-color);
         }
 
-        .nav-item form button.nav-link {
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
+        .btn-primary:hover {
+            background-color: #357abd;
+            border-color: #357abd;
         }
 
-        .nav-item form button.nav-link:hover {
-            background-color: var(--hover-color);
-            color: var(--primary-color) !important;
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 0.5rem 1rem;
-            }
-            
-            .nav-link {
-                padding: 0.5rem !important;
-            }
+        .main-content {
+            flex: 1;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: auto;
+        }
+
+        .footer h5 {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
         }
     </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'notes:home_page' %}">
-                    <i class="fas fa-book-open me-2"></i>Keep Notes
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'notes:index' %}">
+                    <i class="fas fa-book me-2"></i>Keep Notes
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -107,38 +148,28 @@
                                     <i class="fas fa-home me-1"></i>Home
                                 </a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link add" href="#">
-                                    <i class="fas fa-plus me-1"></i>
-                                </a>
-                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'notes:settings' %}">
                                     <i class="fas fa-cog me-1"></i>Settings
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <form method="post" action="{% url 'notes:logout' %}" style="display: inline;">
+                                <form action="{% url 'notes:logout' %}" method="post" class="d-inline">
                                     {% csrf_token %}
-                                    <button type="submit" class="nav-link" style="background: none; border: none;">
+                                    <button type="submit" class="btn btn-link nav-link" style="text-decoration: none;">
                                         <i class="fas fa-sign-out-alt me-1"></i>Logout
                                     </button>
                                 </form>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'notes:index' %}">
-                                    <i class="fas fa-home me-1"></i>Home
+                                <a class="nav-link" href="{% url 'notes:login' %}">
+                                    <i class="fas fa-sign-in-alt me-1"></i>Login
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'notes:register' %}">
                                     <i class="fas fa-user-plus me-1"></i>Register
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link add" href="{% url 'notes:login' %}">
-                                    <i class="fas fa-sign-in-alt me-1"></i>Login
                                 </a>
                             </li>
                         {% endif %}
@@ -152,6 +183,52 @@
         {% block body %}
         {% endblock body %}
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5><i class="fas fa-book me-2"></i>Keep Notes</h5>
+                    <p class="text-muted">A simple and elegant way to organize your thoughts, ideas, and important information. Keep your notes organized and accessible from anywhere.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'notes:index' %}">Home</a></li>
+                        <li><a href="{% url 'notes:login' %}">Login</a></li>
+                        <li><a href="{% url 'notes:register' %}">Register</a></li>
+                        <li><a href="{% url 'notes:settings' %}">Settings</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h5>Features</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Create Notes</a></li>
+                        <li><a href="#">Edit Notes</a></li>
+                        <li><a href="#">Delete Notes</a></li>
+                        <li><a href="#">Search Notes</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5>Contact </h5>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope me-2"></i>umesh@keepnotes.com</li>
+                        <li><i class="fas fa-phone me-2"></i>9818110430</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Suryabinayak, Bhaktapur</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; {% now "Y" %} Keep Notes. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'js/index.js' %}"></script>
