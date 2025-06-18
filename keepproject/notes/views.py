@@ -5,6 +5,8 @@ from django.contrib import messages
 from .models import Note
 from .forms import NoteCreationForm,NoteUpdateForm,AccountSettingsForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
+from django.db.models import Q
 
 
 
@@ -108,5 +110,21 @@ def delete(request,id):
     note_to_delete.delete()
 
     return redirect('notes:home_page')
+
+@login_required(login_url='notes:login')
+def search_notes(request):
+    query = request.GET.get('q', '')
+    if query:
+        notes = Note.objects.filter(
+            Q(author=request.user) & 
+            (Q(title__icontains=query) | Q(description__icontains=query))
+        ).order_by('-id')
+    else:
+        notes = Note.objects.filter(author=request.user).order_by('-id')
+    
+    return render(request, 'home.html', {
+        'notes': notes,
+        'query': query
+    })
 
 
