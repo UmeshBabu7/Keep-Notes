@@ -7,6 +7,7 @@ from .forms import NoteCreationForm,NoteUpdateForm,AccountSettingsForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 
@@ -36,7 +37,10 @@ def register(request):
 
 @login_required
 def home_page(request):
-    notes=Note.objects.all()
+    notes = Note.objects.filter(author=request.user).order_by('-id')
+    paginator = Paginator(notes, 6)  # Show 6 notes per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     form=NoteCreationForm()
 
     if request.method =='POST':
@@ -50,7 +54,7 @@ def home_page(request):
             return redirect('notes:home_page')
     
     context={
-        'notes':notes,
+        'notes':page_obj,
         'form':form
     }
 
@@ -122,8 +126,12 @@ def search_notes(request):
     else:
         notes = Note.objects.filter(author=request.user).order_by('-id')
     
+    paginator = Paginator(notes, 6)  # Show 6 notes per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     return render(request, 'home.html', {
-        'notes': notes,
+        'notes': page_obj,
         'query': query
     })
 
