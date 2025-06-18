@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
 {% block body %}
-    
-    
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">You have Logged Out</h1>
-            <p class="lead text-muted">Thank you for spending quality time on the website</p>
-            <p>
-              <a href="{% url 'notes:login' %}" class="btn btn-secondary my-2">Login Again</a>
-            </p>
-          </div>
+<div class="container">
+    <div class="row min-vh-100 align-items-center">
+        <div class="col-lg-6 col-md-8 mx-auto text-center">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-5">
+                    <i class="fas fa-check-circle fa-4x text-success mb-4"></i>
+                    <h1 class="display-5 fw-bold mb-4">Successfully Logged Out</h1>
+                    <p class="lead text-muted mb-5">Thank you for using Keep Notes. Your session has been securely ended.</p>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a href="{% url 'notes:login' %}" class="btn btn-primary btn-lg px-4">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login Again
+                        </a>
+                        <a href="{% url 'notes:index' %}" class="btn btn-outline-primary btn-lg px-4">
+                            <i class="fas fa-home me-2"></i>Go Home
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
-   
-    
+    </div>
+</div>
 {% endblock body %}

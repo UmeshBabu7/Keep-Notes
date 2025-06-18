@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
-{% block body%}
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">Keep Notes</h1>
-            <p class="lead text-muted">This is a note keeping app built with Django</p>
-            <p>
-              <a href="{% url 'notes:register' %}" class="btn btn-primary my-2">Create an account</a>
-              <a href="{% url 'notes:login' %}" class="btn btn-secondary my-2">Login</a>
-            </p>
-          </div>
+{% block body %}
+<div class="container">
+    <div class="row min-vh-100 align-items-center">
+        <div class="col-lg-6 col-md-8 mx-auto text-center">
+            <div class="hero-section p-5 rounded-4 shadow-sm bg-white">
+                <i class="fas fa-book-open fa-4x text-primary mb-4"></i>
+                <h1 class="display-4 fw-bold mb-4">Keep Notes</h1>
+                <p class="lead text-muted mb-5">Your personal space for thoughts, ideas, and memories. Built with Django for a seamless experience.</p>
+                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                    <a href="{% url 'notes:register' %}" class="btn btn-primary btn-lg px-4 gap-3">
+                        <i class="fas fa-user-plus me-2"></i>Create Account
+                    </a>
+                    <a href="{% url 'notes:login' %}" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </a>
+                </div>
+            </div>
         </div>
-      </section>
-{% endblock body%}
+    </div>
+</div>
+{% endblock body %}
