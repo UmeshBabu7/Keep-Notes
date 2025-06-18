@@ -12,6 +12,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='loggedout.html'), name='logout'),
     path('register/', views.register, name='register'),
     path('settings/', views.settings, name='settings'),
-    path('update/<int:note_id>/', views.update, name='update'),
-    path('delete/<int:note_id>/', views.delete, name='delete'),
+    path('update/<int:id>/', views.update, name='update'),
+    path('delete/<int:id>/', views.delete, name='delete'),
 ]
