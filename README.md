@@ -4,14 +4,14 @@ A Django-based note-taking web application that allows users to create, manage, 
 
 ## Features
 
-- 🔐 **User Authentication**: Secure registration and login system
-- 📝 **Create Notes**: Add new notes with title and description
-- ✏️ **Edit Notes**: Update existing notes anytime
-- 🗑️ **Delete Notes**: Remove notes you no longer need
-- 🔍 **Search Functionality**: Search through your notes by title or description
-- 👤 **Account Settings**: Update your profile information (username, first name, last name)
-- 📄 **Pagination**: View notes in organized pages (6 notes per page)
-- 🔒 **User Privacy**: Each user can only view and manage their own notes
+- **User Authentication**: Secure registration and login system
+- **Create Notes**: Add new notes with title and description
+- **Edit Notes**: Update existing notes anytime
+- **Delete Notes**: Remove notes you no longer need
+- **Search Functionality**: Search through your notes by title or description
+- **Account Settings**: Update your profile information (username, first name, last name)
+- **Pagination**: View notes in organized pages (6 notes per page)
+- **User Privacy**: Each user can only view and manage their own notes
 
 ## Tech Stack
 
